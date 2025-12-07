@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中美核心资产 vs M2：终极对决 (2025版)</title>
+    <title>中美核心资产 vs M2：终极对决 (2025对比版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.1.0/dist/chartjs-plugin-annotation.min.js"></script>
@@ -38,114 +38,130 @@
     <header class="w-full max-w-7xl mb-4 text-center">
         <h1 class="text-xl md:text-3xl font-bold text-gray-900 mb-1">中美资产大乱斗 (1980-2025)</h1>
         <p class="text-xs md:text-sm text-gray-500">
-            <span class="bg-yellow-100 text-yellow-800 px-1 rounded">Update</span> 新增BTC减半周期线
-            | <span class="font-bold text-red-600">强烈建议开启“对数坐标”验证周期论</span>
+            <span class="bg-purple-100 text-purple-800 px-1 rounded">Update</span> 美国区：上海房价已折算为 USD/m² | 真正的硬通货PK
         </p>
     </header>
 
     <!-- Main Content -->
-    <main class="w-full max-w-7xl bg-white rounded-xl shadow-lg overflow-hidden">
+    <main class="w-full max-w-7xl space-y-6">
         
-        <!-- Country Tabs -->
-        <div class="flex border-b border-gray-200">
-            <button onclick="switchCountry('cn')" id="tab-cn" class="tab-btn active flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                <span class="text-xl">🇨🇳</span> 中国 (1998-2025)
-            </button>
-            <button onclick="switchCountry('us')" id="tab-us" class="tab-btn flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                <span class="text-xl">🇺🇸</span> 美国 (1980-2025)
-            </button>
-        </div>
+        <!-- SECTION 1: ASSETS VS M2 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Country Tabs -->
+            <div class="flex border-b border-gray-200">
+                <button onclick="switchCountry('cn')" id="tab-cn" class="tab-btn active flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                    <span class="text-xl">🇨🇳</span> 中国 (1980-2025)
+                </button>
+                <button onclick="switchCountry('us')" id="tab-us" class="tab-btn flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                    <span class="text-xl">🇺🇸</span> 美国 (1980-2025)
+                </button>
+            </div>
 
-        <div class="p-3 md:p-5">
-            <!-- Controls -->
-            <div class="mb-5 grid grid-cols-1 lg:grid-cols-3 gap-4">
-                
-                <!-- Inflation Model -->
-                <div class="col-span-1 lg:col-span-2 bg-gray-50 border border-gray-200 rounded-lg p-3">
-                    <h3 class="text-sm font-bold text-gray-700 mb-2">选择“折算标准” (去除水分)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                        <label class="radio-label cursor-pointer relative">
-                            <input type="radio" name="infMode" value="cpi" class="sr-only" onchange="switchMode('cpi')">
-                            <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between">
-                                <span class="font-bold text-sm">官方 CPI</span>
-                                <p class="text-xs text-gray-500 mt-1">仅消费品，通常低估。</p>
-                            </div>
-                        </label>
-                        <label class="radio-label cursor-pointer relative">
-                            <input type="radio" name="infMode" value="custom" class="sr-only" checked onchange="switchMode('custom')">
-                            <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between">
-                                <span class="font-bold text-sm">自定义固定值</span>
-                                <p class="text-xs text-gray-500 mt-1">模拟体感通胀。</p>
-                            </div>
-                        </label>
-                        <label class="radio-label cursor-pointer relative">
-                            <input type="radio" name="infMode" value="m2" class="sr-only" onchange="switchMode('m2')">
-                            <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between bg-purple-50 border-purple-200">
-                                <span class="font-bold text-sm text-purple-700">M2 印钞速度</span>
-                                <p class="text-xs text-gray-500 mt-1 text-purple-600">资产的终极测试。跑赢它才算真赚钱。</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Slider / Log -->
-                <div class="col-span-1 bg-gray-50 border border-gray-200 rounded-lg p-3 flex flex-col justify-between">
-                    <div id="sliderContainer">
-                        <label class="block text-sm font-medium text-gray-700 mb-2 flex justify-between">
-                            <span>自定义通胀率</span>
-                            <span id="inflationValue" class="font-bold text-blue-600">5.5%</span>
-                        </label>
-                        <input type="range" id="inflationSlider" min="0" max="20" step="0.1" value="5.5" 
-                               class="w-full h-2 bg-blue-200 rounded-lg slider-thumb">
-                    </div>
-                    <div id="infoContainer" class="hidden text-xs text-gray-500 p-2 bg-white rounded border overflow-y-auto h-20"><p id="infoText"></p></div>
+            <div class="p-3 md:p-5">
+                <!-- Controls -->
+                <div class="mb-5 grid grid-cols-1 lg:grid-cols-3 gap-4">
                     
-                    <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200 bg-yellow-50 p-2 rounded">
-                        <div class="flex items-center">
-                            <span class="text-sm font-bold text-gray-800 mr-2">开启对数坐标</span>
-                            <div class="relative inline-block w-10 align-middle select-none">
-                                <input type="checkbox" id="logScaleToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
-                                <label for="logScaleToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-                            </div>
+                    <!-- Inflation Model -->
+                    <div class="col-span-1 lg:col-span-2 bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h3 class="text-sm font-bold text-gray-700 mb-2">选择“折算标准” (去除水分)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <label class="radio-label cursor-pointer relative">
+                                <input type="radio" name="infMode" value="cpi" class="sr-only" onchange="switchMode('cpi')">
+                                <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between">
+                                    <span class="font-bold text-sm">官方 CPI</span>
+                                    <p class="text-xs text-gray-500 mt-1">仅消费品，通常低估。</p>
+                                </div>
+                            </label>
+                            <label class="radio-label cursor-pointer relative">
+                                <input type="radio" name="infMode" value="custom" class="sr-only" checked onchange="switchMode('custom')">
+                                <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between">
+                                    <span class="font-bold text-sm">自定义固定值</span>
+                                    <p class="text-xs text-gray-500 mt-1">模拟体感通胀。</p>
+                                </div>
+                            </label>
+                            <label class="radio-label cursor-pointer relative">
+                                <input type="radio" name="infMode" value="m2" class="sr-only" onchange="switchMode('m2')">
+                                <div class="border border-gray-300 rounded-md p-3 hover:bg-gray-50 h-full flex flex-col justify-between bg-purple-50 border-purple-200">
+                                    <span class="font-bold text-sm text-purple-700">M2 印钞速度</span>
+                                    <p class="text-xs text-gray-500 mt-1 text-purple-600">资产的终极测试。跑赢它才算真赚钱。</p>
+                                </div>
+                            </label>
                         </div>
+                    </div>
+
+                    <!-- Slider / Log -->
+                    <div class="col-span-1 bg-gray-50 border border-gray-200 rounded-lg p-3 flex flex-col justify-between">
+                        <div id="sliderContainer">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex justify-between">
+                                <span>自定义通胀率</span>
+                                <span id="inflationValue" class="font-bold text-blue-600">5.5%</span>
+                            </label>
+                            <input type="range" id="inflationSlider" min="0" max="20" step="0.1" value="5.5" 
+                                   class="w-full h-2 bg-blue-200 rounded-lg slider-thumb">
+                        </div>
+                        <div id="infoContainer" class="hidden text-xs text-gray-500 p-2 bg-white rounded border overflow-y-auto h-20"><p id="infoText"></p></div>
                         
-                         <div class="flex items-center">
-                            <span class="text-sm font-bold text-orange-600 mr-2">显示BTC减半</span>
-                            <div class="relative inline-block w-10 align-middle select-none">
-                                <input type="checkbox" id="halvingToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
-                                <label for="halvingToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200 bg-yellow-50 p-2 rounded">
+                            <div class="flex items-center">
+                                <span class="text-sm font-bold text-gray-800 mr-2">开启对数坐标</span>
+                                <div class="relative inline-block w-10 align-middle select-none">
+                                    <input type="checkbox" id="logScaleToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                                    <label for="logScaleToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            
+                             <div class="flex items-center" id="halvingContainer">
+                                <span class="text-sm font-bold text-orange-600 mr-2">显示BTC减半</span>
+                                <div class="relative inline-block w-10 align-middle select-none">
+                                    <input type="checkbox" id="halvingToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                                    <label for="halvingToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Asset Toggles (New Feature) -->
-            <div id="assetToggles" class="mb-4 flex flex-wrap gap-2 text-sm select-none">
-                <!-- Dynamically populated checkboxes -->
-            </div>
+                <!-- Asset Toggles -->
+                <div id="assetToggles" class="mb-4 flex flex-wrap gap-2 text-sm select-none">
+                    <!-- Dynamically populated checkboxes -->
+                </div>
 
-            <!-- Chart Container -->
-            <div class="relative h-[450px] md:h-[600px] w-full">
-                <canvas id="housingChart"></canvas>
-            </div>
+                <!-- Chart Container -->
+                <div class="relative h-[400px] md:h-[550px] w-full">
+                    <canvas id="housingChart"></canvas>
+                </div>
 
-            <!-- Legend -->
-            <div class="mt-4 flex flex-wrap justify-center gap-4 text-xs text-gray-500" id="customLegend">
-                <!-- Dynamically populated -->
-            </div>
+                <!-- Legend -->
+                <div class="mt-4 flex flex-wrap justify-center gap-4 text-xs text-gray-500" id="customLegend">
+                    <!-- Dynamically populated -->
+                </div>
 
-            <!-- Analysis Box -->
-            <div class="mt-5 p-4 bg-gray-100 rounded-lg border border-gray-300 text-sm">
-                <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
-                    <span id="analysisIcon">📊</span> 
-                    <span id="analysisTitle">数据解读 (Crypto Insight)</span>
-                </h3>
-                <div id="analysisContent" class="text-gray-700 space-y-2 leading-relaxed">
-                    <!-- Dynamic content -->
+                <!-- Analysis Box -->
+                <div class="mt-5 p-4 bg-gray-100 rounded-lg border border-gray-300 text-sm">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                        <span id="analysisIcon">📊</span> 
+                        <span id="analysisTitle">数据解读</span>
+                    </h3>
+                    <div id="analysisContent" class="text-gray-700 space-y-2 leading-relaxed">
+                        <!-- Dynamic content -->
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- SECTION 2: M2 COMPARISON -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden p-5">
+            <h2 class="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center">
+                <span class="mr-2">🖨️</span> 全球印钞机大赛：M2 增长指数对比 (2000年=100)
+            </h2>
+            <div class="relative h-[350px] w-full">
+                <canvas id="m2CompChart"></canvas>
+            </div>
+            <div class="mt-3 text-xs text-gray-500 text-center">
+                注：数据为广义货币(M2)名义值近似估算。中国M2扩表速度远超美日。
+            </div>
+        </div>
+
     </main>
 
     <script>
@@ -154,50 +170,109 @@
         // ==========================================
         const years = Array.from({length: 46}, (_, i) => 1980 + i);
 
-        // Helper: Pad CN data (starts 1998, index 18)
-        function padCN(dataArr) {
-            const padded = new Array(18).fill(null);
-            return padded.concat(dataArr);
-        }
-
-        // --- CHINA DATA (1998-2025) ---
+        // --- CHINA DATA (1980-2025) ---
         const cnDataRaw = {
-            m2: [10.4, 11.9, 13.5, 15.8, 18.5, 22.1, 25.3, 29.8, 34.6, 40.3, 47.5, 60.6, 72.6, 85.2, 97.4, 110.6, 122.8, 139.2, 155.0, 167.7, 182.7, 198.6, 218.7, 238.3, 266.4, 292.3, 309.0, 335.0],
-            cpi: [-0.8, -1.4, 0.4, 0.7, -0.8, 1.2, 3.9, 1.8, 1.5, 4.8, 5.9, -0.7, 3.3, 5.4, 2.6, 2.6, 2.0, 1.4, 2.0, 1.6, 2.1, 2.9, 2.5, 0.9, 2.0, 0.2, 0.3, 1.0],
-            bj: [2000, 2300, 2800, 3200, 3600, 3900, 4500, 5800, 7800, 11000, 12500, 16000, 22000, 26000, 28000, 34000, 38000, 42000, 55000, 60000, 58000, 59000, 61000, 67000, 64000, 61000, 56000, 54000],
-            sh: [2300, 2450, 2900, 3500, 4200, 5100, 6500, 8800, 10500, 13000, 14500, 18000, 23000, 25500, 27000, 32000, 37000, 46000, 58000, 62000, 61000, 62000, 66000, 73000, 69000, 65000, 61000, 59000],
-            sz: [2800, 3100, 3500, 3800, 4200, 4800, 5500, 7000, 9000, 13000, 12000, 14000, 18000, 19000, 21000, 28000, 45000, 55000, 54000, 56000, 65000, 75000, 82000, 78000, 70000, 65000, 59000, 57000]
+            m2: [
+                0.16, 0.20, 0.24, 0.29, 0.38, 0.52, 0.67, 0.83, 1.01, 1.20, // 80-89
+                1.53, 1.93, 2.54, 3.49, 4.69, 6.08, 7.61, 9.10, // 90-97
+                10.4, 11.9, 13.5, 15.8, 18.5, 22.1, 25.3, 29.8, 34.6, 40.3, 47.5, 60.6, // 98-09
+                72.6, 85.2, 97.4, 110.6, 122.8, 139.2, 155.0, 167.7, 182.7, 198.6, // 10-19
+                218.7, 238.3, 266.4, 292.3, 309.0, 335.0 // 20-25
+            ],
+            cpi: [
+                6.0, 2.4, 1.9, 1.5, 2.8, 9.3, 6.5, 7.3, 18.8, 18.0, // 80-89 
+                3.1, 3.4, 6.4, 14.7, 24.1, 17.1, 8.3, 2.8, // 90-97
+                -0.8, -1.4, 0.4, 0.7, -0.8, 1.2, 3.9, 1.8, 1.5, 4.8, 5.9, -0.7, 
+                3.3, 5.4, 2.6, 2.6, 2.0, 1.4, 2.0, 1.6, 2.1, 2.9, 
+                2.5, 0.9, 2.0, 0.2, 0.3, 1.0
+            ],
+            // Housing
+            sh: new Array(18).fill(null).concat([
+                2300, 2450, 2900, 3500, 4200, 5100, 6500, 8800, 10500, 13000, 
+                14500, 18000, 23000, 25500, 27000, 32000, 37000, 46000, 58000, 62000, 
+                61000, 62000, 66000, 73000, 69000, 65000, 61000, 59000
+            ]),
+            cd: new Array(18).fill(null).concat([
+                1800, 1900, 2100, 2300, 2600, 3100, 3800, 4500, 4800, 5500, 
+                5200, 5800, 6500, 7200, 7500, 7800, 8200, 8500, 9800, 12000, 
+                14500, 16000, 17500, 19000, 18500, 17800, 17000, 16800 
+            ]),
+            sh_comp: new Array(10).fill(null).concat([
+                100, 292, 780, 833, 647, 555, 917, 1194, // 90-97
+                1146, 1366, 2073, 1645, 1357, 1497, 1266, 1161, 2675, 5261, // 98-07
+                1820, 3277, 2808, 2199, 2269, 2115, 3234, 3539, 3103, 3307, 
+                2493, 3050, 3473, 3639, 3089, 2974, 2950, 3150
+            ]),
+            // Gold CNY/g -> Converted to CNY/oz
+            gold_cny_oz: [
+                28, 22, 19, 21, 18, 16, 20, 26, 28, 26, 
+                27, 26, 25, 27, 30, 32, 33, 30,
+                75, 78, 83, 89, 95, 105, 115, 125, 160, 190, 
+                205, 245, 285, 330, 340, 270, 250, 235, 270, 275, 
+                280, 315, 390, 375, 410, 480, 560, 620
+            ].map(v => v * 31.1),
+            // Silver CNY/oz
+            silver_cny_oz: [
+                1.0, 0.5, 0.4, 0.5, 0.4, 0.3, 0.3, 0.4, 0.4, 0.4, 
+                0.3, 0.3, 0.3, 0.4, 0.5, 0.5, 0.5, 0.5, 
+                1.5, 1.4, 1.4, 1.3, 1.3, 1.4, 1.8, 2.0, 3.5, 3.8, 
+                3.5, 4.0, 6.0, 8.5, 6.5, 4.2, 3.8, 3.5, 4.0, 3.9, 
+                3.6, 4.0, 5.5, 4.8, 4.5, 5.5, 6.5, 12.0
+            ].map(v => v * 31.1),
+            // USD/CNY Exchange Rate
+            usd_cny: [
+                1.5, 1.7, 1.9, 1.9, 2.3, 2.9, 3.4, 3.7, 3.7, 3.7, // 80-89
+                4.7, 5.3, 5.7, 5.7, 8.6, 8.3, 8.3, 8.2, // 90-97 (94 Devaluation)
+                8.2, 8.2, 8.2, 8.2, 8.2, 8.2, 8.2, 8.1, 7.9, 7.6, 
+                6.9, 6.8, 6.7, 6.4, 6.3, 6.1, 6.1, 6.2, 6.6, 6.7, 
+                6.6, 6.9, 6.9, 6.4, 6.7, 7.0, 7.1, 7.2 // 98-25
+            ]
         };
+        
+        // BTC Data
+        const btc_usd = [0.1, 5, 13, 700, 320, 430, 960, 14000, 3700, 7200, 29000, 47000, 16000, 42000, 95000, 145000];
+        const btc_padded_cn = new Array(30).fill(null).concat(btc_usd.map(v => v * 7.1));
+        const btc_padded_us = new Array(30).fill(null).concat(btc_usd);
 
         const cnData = {
-            m2_totals: padCN(cnDataRaw.m2),
-            m2_rates: new Array(18).fill(null).concat([14.8], cnDataRaw.m2.slice(1).map((v, i) => ((v - cnDataRaw.m2[i])/cnDataRaw.m2[i])*100)),
-            cpi_rates: new Array(18).fill(null).concat(cnDataRaw.cpi),
+            m2_totals: cnDataRaw.m2,
+            m2_rates: [0].concat(cnDataRaw.m2.slice(1).map((v, i) => ((v - cnDataRaw.m2[i])/cnDataRaw.m2[i])*100)),
+            cpi_rates: cnDataRaw.cpi,
             assets: [
-                { name: '北京房价', color: '#2563EB', data: padCN(cnDataRaw.bj), visible: true },
-                { name: '上海房价', color: '#7C3AED', data: padCN(cnDataRaw.sh), visible: true },
-                { name: '深圳房价', color: '#DC2626', data: padCN(cnDataRaw.sz), visible: true }
+                { name: '上海房价', color: '#7C3AED', data: cnDataRaw.sh, visible: true },
+                { name: '成都房价', color: '#0EA5E9', data: cnDataRaw.cd, visible: true }, 
+                { name: '上证指数 (大A)', color: '#DB2777', data: cnDataRaw.sh_comp, visible: true },
+                { name: '黄金 (CNY/oz)', color: '#EAB308', data: cnDataRaw.gold_cny_oz, visible: true },
+                { name: '白银 (CNY/oz)', color: '#94A3B8', data: cnDataRaw.silver_cny_oz, visible: true },
+                { name: 'BTC (CNY计价)', color: '#F97316', data: btc_padded_cn, visible: true },
+                { name: 'USD/CNY汇率', color: '#10B981', data: cnDataRaw.usd_cny, visible: true, borderDash: [5,5] } 
             ],
-            unit: '元/平米',
+            unit: '价格/点数/汇率',
             m2_unit: '万亿人民币',
-            desc: '中国数据更新至2025年。一线城市房价在2025年延续了阴跌走势，与M2的背离进一步拉大。这表明货币传导机制已变，增发货币不再涌入楼市，而是更多体现在避险资产或在银行体系空转。'
+            desc: '<ul class="list-disc pl-4 space-y-1"><li><strong>汇率之谜 (绿色虚线)：</strong>看图中最平缓的那条线——汇率。尽管M2（灰色背景）翻了几十倍，但人民币汇率仅从1.5贬值到7.2。这说明超发的货币主要被<strong>房地产（紫线/蓝线）</strong>和<strong>经济增长</strong>吸收了，表现为“对内资产价格贬值（房价涨）”，而维持了“对外汇率相对稳定”。这就是“蓄水池”效应。</li><li><strong>黄金 (黄线)：</strong>黄金价格的长期上涨，其实就是人民币购买力下降的真实镜像。</li></ul>',
+            halvingDates: [2012, 2016, 2020, 2024]
         };
+
+        // --- CALC SHANGHAI IN USD/SQM ---
+        const sh_cny = cnDataRaw.sh;
+        const rates = cnDataRaw.usd_cny;
+        const sh_usd_sqm = sh_cny.map((val, i) => val !== null ? val / rates[i] : null);
 
         // --- US DATA (1980-2025) ---
         const usData = {
             m2_totals: [
-                1.6, 1.75, 1.95, 2.18, 2.37, 2.57, 2.81, 2.91, 3.06, 3.22, // 80s
-                3.34, 3.44, 3.55, 3.63, 3.68, 3.82, 4.02, 4.22, 4.40, 4.60, // 90s
-                4.92, 5.43, 5.78, 6.05, 6.41, 6.68, 7.04, 7.45, 8.16, 8.52, // 00s
-                8.82, 9.63, 10.42, 11.05, 11.64, 12.32, 13.19, 13.93, 14.53, 15.32, // 10s
-                19.12, 21.43, 21.31, 20.88, 21.10, 21.95 // 20s (2025 Est)
+                1.6, 1.75, 1.95, 2.18, 2.37, 2.57, 2.81, 2.91, 3.06, 3.22, 
+                3.34, 3.44, 3.55, 3.63, 3.68, 3.82, 4.02, 4.22, 4.40, 4.60, 
+                4.92, 5.43, 5.78, 6.05, 6.41, 6.68, 7.04, 7.45, 8.16, 8.52, 
+                8.82, 9.63, 10.42, 11.05, 11.64, 12.32, 13.19, 13.93, 14.53, 15.32, 
+                19.12, 21.43, 21.31, 20.88, 21.10, 21.95 
             ],
             cpi_rates: [
                 13.5, 10.3, 6.1, 3.2, 4.3, 3.6, 1.9, 3.6, 4.1, 4.8,
                 5.4, 4.2, 3.0, 3.0, 2.6, 2.8, 3.0, 2.3, 1.6, 2.2,
                 3.4, 2.8, 1.6, 2.3, 2.7, 3.4, 3.2, 2.8, 3.8, -0.4,
                 1.6, 3.2, 2.1, 1.5, 1.6, 0.1, 1.3, 2.1, 2.4, 1.8,
-                1.2, 4.7, 8.0, 4.1, 3.1, 2.3 // 2025 Est
+                1.2, 4.7, 8.0, 4.1, 3.1, 2.3
             ],
             assets: [
                 { 
@@ -213,9 +288,9 @@
                     ] 
                 },
                 {
-                    name: '黄金 (Gold)',
+                    name: '黄金 (USD/oz)',
                     color: '#EAB308', 
-                    visible: false,
+                    visible: true, 
                     data: [ 
                         612, 460, 376, 424, 360, 317, 368, 447, 437, 381,
                         383, 362, 343, 359, 384, 384, 387, 331, 294, 278,
@@ -225,9 +300,9 @@
                     ]
                 },
                 {
-                    name: '白银 (Silver)',
+                    name: '白银 (USD/oz)', 
                     color: '#94A3B8',
-                    visible: false,
+                    visible: true, 
                     data: [
                         20.9, 10.5, 7.9, 11.4, 8.1, 6.1, 5.4, 7.0, 6.5, 5.5,
                         4.8, 4.0, 3.9, 4.3, 5.3, 5.2, 5.1, 4.8, 5.5, 5.2,
@@ -239,7 +314,7 @@
                 {
                     name: '全美房价(指数)', 
                     color: '#0891B2', 
-                    visible: false,
+                    visible: true, 
                     data: [
                         650, 690, 710, 750, 800, 850, 920, 1050, 1120, 1200,
                         1250, 1220, 1240, 1280, 1330, 1380, 1420, 1490, 1580, 1650,
@@ -247,6 +322,14 @@
                         2250, 2300, 2450, 2650, 2800, 2950, 3100, 3250, 3300, 3350,
                         3400, 3800, 4400, 4200, 4250, 4280
                     ]
+                },
+                {
+                    // ADDED: Shanghai Housing converted to USD/sqm
+                    name: '中国上海房价 (USD/m²)', 
+                    color: '#7C3AED', 
+                    visible: true, 
+                    data: sh_usd_sqm,
+                    borderDash: [5, 5] // Dashed to distinguish foreign asset
                 },
                 {
                     name: 'Apple (AAPL)',
@@ -283,16 +366,12 @@
                     name: 'BTC (比特币)',
                     color: '#F97316', 
                     visible: true,
-                    data: new Array(30).fill(null).concat([
-                        0.1, 5, 13, 700, 320, 430, 960, 14000, 3700, 7200,
-                        29000, 47000, 16000, 42000, 95000, 145000
-                    ])
+                    data: btc_padded_us
                 }
             ],
             unit: '价格/点数',
             m2_unit: '万亿美元',
-            desc: '<ul class="list-disc pl-4 space-y-1"><li><strong>BTC (橙线) 的“双重属性”：</strong>正如您所言，BTC结合了黄金的抗通胀性与科技股的高成长性。开启“BTC减半”开关后可以看到，每隔4年的竖线几乎都是新一轮行情的起跑枪，这种程序化的供应减半带来了比Tesla/Nvidia更强的周期确定性。</li><li><strong>Tesla vs BTC：</strong>虽然两者都是高贝塔资产，但Tesla极度依赖马斯克的个人决策和季度财报，而BTC的上涨更像是对全球法币贬值的被动响应，因此长期看BTC的“反脆弱性”更强。</li></ul>',
-            // Define Halving Dates for annotation
+            desc: '<ul class="list-disc pl-4 space-y-1"><li><strong>中美房产大PK (紫色虚线 vs 蓝色实线)：</strong>通过将上海房价换算为<strong>美元/平米 (USD/m²)</strong>，我们得到了一个惊人的对比。在2000-2015年间，上海房价的斜率（紫色）远超美国房价（蓝色）。上海房价从最初的不到$300/平米，一路飙升至$8,000+/平米，而美国房价指数则显得非常“温和”。</li><li><strong>硬通货视角：</strong>即便以美元计价，中国一线城市的房产在过去20年也是全球表现最好的大类资产之一，直到近几年才开始回调。</li></ul>',
             halvingDates: [2012, 2016, 2020, 2024]
         };
         
@@ -305,22 +384,19 @@
         // ==========================================
         // 2. STATE & LOGIC
         // ==========================================
+        if (window['chartjs-plugin-annotation']) {
+            Chart.register(window['chartjs-plugin-annotation']);
+        }
+
         let currentCountry = 'cn'; 
         let currentMode = 'custom'; 
         let chartInstance = null;
+        let m2ChartInstance = null;
 
         function switchCountry(code) {
             currentCountry = code;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`tab-${code}`).classList.add('active');
-            
-            // Show/Hide Halving Toggle based on country
-            const halvingContainer = document.getElementById('halvingToggle').closest('.flex');
-            if(code === 'us') {
-                halvingContainer.style.display = 'flex';
-            } else {
-                halvingContainer.style.display = 'none';
-            }
             
             renderToggles();
             updateChart();
@@ -396,10 +472,13 @@
         }
 
         // ==========================================
-        // 3. CHART RENDERING
+        // 3. CHART RENDERING (MAIN CHART)
         // ==========================================
         function initChart() {
             const ctx = document.getElementById('housingChart').getContext('2d');
+            
+            if(chartInstance) chartInstance.destroy();
+
             chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: { labels: years, datasets: [] },
@@ -422,15 +501,15 @@
                                     else if(val) val = val.toFixed(2);
                                     
                                     let suffix = '';
-                                    if(context.dataset.label.includes('房价') && currentCountry === 'us') suffix = ' (指数)';
+                                    if(context.dataset.label.includes('房价') && currentCountry === 'us' && !context.dataset.label.includes('上海')) suffix = ' (指数)';
                                     
                                     return `${context.dataset.label}: ${val}${suffix}`;
                                 }
                             }
                         },
                         legend: { display: false },
-                        annotation: {
-                            annotations: {}
+                        annotation: { 
+                            annotations: [] 
                         }
                     },
                     scales: {
@@ -440,13 +519,10 @@
                             title: { display: true, text: '资产价格' },
                             ticks: { 
                                 callback: function(value) {
-                                    if(value === 0.1) return '0.1';
-                                    if(value === 1) return '1';
-                                    if(value === 10) return '10';
-                                    if(value === 100) return '100';
-                                    if(value === 1000) return '1k';
-                                    if(value === 10000) return '10k';
-                                    if(value === 100000) return '100k';
+                                    if([0.1, 1, 10, 100, 1000, 10000, 100000, 1000000].includes(value)) {
+                                        if(value>=1000) return (value/1000) + 'k';
+                                        return value;
+                                    }
                                     return null;
                                 }
                             }
@@ -463,7 +539,6 @@
                 }
             });
             
-            // Initial render
             switchCountry('cn'); 
         }
 
@@ -471,7 +546,7 @@
             const data = currentCountry === 'cn' ? cnData : usData;
             const customRate = parseFloat(document.getElementById('inflationSlider').value);
             const isLog = document.getElementById('logScaleToggle').checked;
-            const showHalving = document.getElementById('halvingToggle').checked && currentCountry === 'us';
+            const showHalving = document.getElementById('halvingToggle').checked;
 
             let infRates = [];
             if(currentMode === 'custom') infRates = new Array(years.length).fill(customRate);
@@ -510,7 +585,9 @@
                     pointRadius: 0,
                     pointHoverRadius: 4,
                     order: 10,
-                    spanGaps: true
+                    spanGaps: true,
+                    // Dashed for USD/CNY to distinguish
+                    borderDash: asset.borderDash || [3, 3] 
                 });
 
                 // Real
@@ -529,35 +606,35 @@
 
             chartInstance.data.datasets = datasets;
             chartInstance.data.labels = years;
-            
             chartInstance.options.scales.y.title.text = `价格 (${data.unit})`;
             chartInstance.options.scales.y1.title.text = `M2总量 (${data.m2_unit})`;
             chartInstance.options.scales.y.type = isLog ? 'logarithmic' : 'linear';
 
             // Annotations (Halving)
-            const annotations = {};
+            const newAnnotations = [];
             if (showHalving && data.halvingDates) {
                 data.halvingDates.forEach((year, i) => {
-                    annotations[`line${i}`] = {
+                    newAnnotations.push({
                         type: 'line',
-                        xMin: year,
-                        xMax: year,
-                        borderColor: 'rgba(249, 115, 22, 0.4)', // Orange
+                        scaleID: 'x',
+                        value: year,
+                        borderColor: 'rgba(249, 115, 22, 0.6)',
                         borderWidth: 2,
                         borderDash: [5, 5],
                         label: {
                             display: true,
                             content: `减半 ${year}`,
                             position: 'start',
-                            backgroundColor: 'rgba(249, 115, 22, 0.7)',
+                            backgroundColor: 'rgba(249, 115, 22, 0.8)',
                             color: 'white',
-                            font: { size: 10 }
+                            font: { size: 10 },
+                            yAdjust: 0
                         }
-                    };
+                    });
                 });
             }
-            chartInstance.options.plugins.annotation.annotations = annotations;
-
+            chartInstance.options.plugins.annotation.annotations = newAnnotations;
+            
             chartInstance.update();
 
             document.getElementById('analysisContent').innerHTML = data.desc;
@@ -587,8 +664,91 @@
             updateChart();
         });
 
+        // ==========================================
+        // 4. CHART RENDERING (M2 COMPARISON)
+        // ==========================================
+        function initM2CompChart() {
+            const startYear = 2000;
+            const startIndex = 20; // 2000 is index 20 (since start 1980)
+            const years2000 = years.slice(startIndex);
+            
+            function getIndexedData(dataArr) {
+                const baseVal = dataArr[startIndex];
+                if(!baseVal) return [];
+                return dataArr.slice(startIndex).map(v => (v / baseVal) * 100);
+            }
+
+            const cnM2Indexed = getIndexedData(cnDataRaw.m2);
+            const usM2Indexed = getIndexedData(usData.m2_totals);
+            
+            // Japan proxy: ~2% growth avg
+            const jpM2Indexed = years2000.map((y, i) => 100 * Math.pow(1.025, i));
+
+            const ctx = document.getElementById('m2CompChart').getContext('2d');
+            m2ChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years2000,
+                    datasets: [
+                        {
+                            label: '🇨🇳 中国 M2',
+                            data: cnM2Indexed,
+                            borderColor: '#DC2626',
+                            backgroundColor: '#DC2626',
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            tension: 0.3
+                        },
+                        {
+                            label: '🇺🇸 美国 M2',
+                            data: usM2Indexed,
+                            borderColor: '#2563EB',
+                            backgroundColor: '#2563EB',
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            tension: 0.3
+                        },
+                        {
+                            label: '🇯🇵 日本 M2',
+                            data: jpM2Indexed,
+                            borderColor: '#9CA3AF',
+                            backgroundColor: '#9CA3AF',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${Math.round(context.raw)}`;
+                                }
+                            }
+                        },
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: {
+                            title: { display: true, text: '增长指数 (2000年=100)' },
+                            type: 'linear'
+                        }
+                    }
+                }
+            });
+        }
+
         // Initialize
-        setTimeout(initChart, 100);
+        setTimeout(() => {
+            initChart();
+            initM2CompChart();
+        }, 100);
 
     </script>
 </body>
